@@ -1,0 +1,144 @@
+<div [ngStyle]="{ 'height': innerHeight+'px' }">
+    <p *ngIf="!recibo"><em>Loading Recibo...</em></p>
+
+    <div *ngIf="recibo" class="container mt-3" [ngStyle]="{ 'height': innerHeight+'px', 'overflow':'auto' }">
+        <div class="row">
+            <div class="col-sm-12" style="padding:10px;">
+
+                <div id="divBuscar" class="card">
+                    <div class="card-header-principal">
+                        <div class="panel-container">
+                            <div>
+                                <h1>{{ recibo.descripcion }}</h1>
+                                <br />
+                                <div class="d-flex flex-row flex-wrap">
+                                    <div class="inputDiv form-floating">
+                                        <select class="form-control" id="monthSelect" required>
+                                            <option *ngFor="let item of mesesList" [value]="">
+                                                {{ item }}
+                                            </option>
+                                        </select>
+                                        <label for="floatingPassword">Mes</label>
+                                    </div>
+                                    <div class="inputDiv form-floating">
+                                        <select class="form-control" id="yearSelect" required>
+                                            <option [value]="2023">2023</option>
+                                        </select>
+                                        <label for="floatingInput">Año</label>
+                                    </div>
+                                    <div class="inputDiv form-floating ms-auto">
+                                        <input id="txtFechaVencimiento" type="text" class="form-control" disabled style="background-color: white; width: 100%;" value="{{recibo.fechaVencimientoStr}}" />
+                                        <label for="floatingFechaVencimiento">Fecha de vencimiento</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px;">
+                <div id="divConceptos" class="card">
+                    <div class="card-header">Detalle por departamento </div>
+                    <div class="card-body-nopadding">
+                        <div class="panel-container">
+                            <div>
+                                <div id="divRecibo" class="mt-3">
+                                    <table id="dtBasicExample" class="table table-hover row-border" style="width: 100%;">
+                                        <caption style="caption-side:top"></caption>
+                                        <thead class="text-center" style="font-size: 8px;">
+                                            <tr>
+                                                <ng-container *ngFor="let cabecera of cabeceras; let i = index">
+                                                    <th *ngIf="!shouldHideByIndex(i)">{{ cabecera }}</th>
+                                                </ng-container>
+                                                <th style="padding: 10px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center" style="font-size: small; vertical-align: middle">
+                                            <tr *ngFor="let row of matrizObj">
+                                                <ng-container *ngFor="let cell of row; let i = index">
+                                                    <td *ngIf="!shouldHideByIndex(i)" [ngStyle]="{ 'background-color': i == 21 ? '#eee' : '#fff' }">{{ cell }}</td>
+                                                </ng-container>
+                                                <ng-container>
+                                                    <td style="padding: 10px;">
+                                                        <a id="linkregistrarPago" class="link-registrar-pago" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            <span class="bi bi-check-circle-fill" [ngStyle]="{ 'color': row[4] ? '#25ade2' : '#eee' }" style="font-size: 20px; cursor: pointer;"></span>
+                                                        </a>
+                                                    </td>
+                                                </ng-container>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot class="text-center" style="font-size: x-small; vertical-align: middle">
+                                            <tr>
+                                                <ng-container *ngFor="let header of cabeceras; let i = index">
+                                                    <th *ngIf="!shouldHideByIndex(i)">{{ totales[header] !== '0' ? totales[header] : '' }}</th>
+                                                </ng-container>
+                                                <ng-container>
+                                                    <th style="padding: 10px;"></th>
+                                                </ng-container>   
+                                                
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row q-mb-md ">
+            <div class="col-12 col-md-6" style="padding:10px;">
+
+                <div id="divBarras" class="card">
+                    <div class="card-header">Total mes</div>
+                    <div class="card-body">
+                        <div>
+                            <app-chart-recibo-barras [item]="matrizObj"></app-chart-recibo-barras>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6" style="padding:10px;">
+
+                <div id="divChartEjemplo" class="card">
+                    <div class="card-header">EJEMPLO</div>
+                    <div class="card-body">
+                        <div id="divChartEjemplo">
+                            <app-my-chart></app-my-chart>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="row q-mb-md ">
+            <div class="col-12 col-md-12" style="padding:10px;">
+
+                <div id="divPie" class="card">
+                    <div class="card-header">Acumulado</div>
+                    <div class="card-body">
+                        <div>
+                            <app-chart-recibo-pie [item]="matrizObj" [cabeceras]="cabeceras" [totales]="totales"></app-chart-recibo-pie>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+

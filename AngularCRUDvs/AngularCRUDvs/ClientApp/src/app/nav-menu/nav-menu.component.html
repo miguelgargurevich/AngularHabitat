@@ -1,0 +1,56 @@
+<header id="header" class="layout-header-noradius">
+
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 layout-header-noradius">
+        <div class="container">
+            <a class="navbar-brand" [routerLink]="['/']">
+                <span style="font-family: sans-serif; font-size: large; color: #eee; font-weight: bold; ">HABITAT</span>
+            </a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse"
+                    aria-label="Toggle navigation"
+                    [attr.aria-expanded]="isExpanded"
+                    (click)="toggle()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+                 [ngClass]="{ show: isExpanded }">
+                <ul class="navbar-nav flex-grow">
+                    <li class="nav-item"
+                        [routerLinkActive]="['link-active']"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link text-white" [routerLink]="['/']">Home</a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]="['link-active']">
+                        <a class="nav-link text-white" [routerLink]="['/counter']">Counter</a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]="['link-active']">
+                        <a class="nav-link text-white" [routerLink]="['/fetch-data']">Fetch data</a>
+                    </li>
+                    <li class="nav-item" [routerLinkActive]="['link-active']">
+                        <a class="nav-link text-white" [routerLink]="['/recibo']">Recibo</a>
+                    </li>
+    
+                    <!--<li *ngIf="!estaLogueado()" [routerLinkActive]='["link-active"]'>
+        <a [routerLink]='["/register-login"]' (click)='collapse()'>
+            <span class='glyphicon glyphicon-th-list'></span> Register / Login
+        </a>
+    </li>-->
+                    <!--<li [routerLinkActive]='["link-active"]'>
+        <a [routerLink]='["/personas"]' (click)='collapse()'>
+            <span class='glyphicon glyphicon-th-list'></span> Personas
+        </a>
+    </li>
+
+    <li *ngIf="estaLogueado()" [routerLinkActive]='["link-active"]'>
+        <a (click)='logout()'>
+            <span class='glyphicon glyphicon-th-list'></span> Logout
+        </a>
+    </li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
